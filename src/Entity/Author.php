@@ -107,5 +107,4 @@ class Authors
      *   @ORM\JoinColumn(name=""MainPhotoId"", referencedColumnName="id")
      * })
      */
-
 }
