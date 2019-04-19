@@ -17,10 +17,18 @@ class Author extends AbstractController
     }
 
     /**
-    * @Route("/author/{page<\d>}", name = "author_list")
-    */
-    public function author($page) {
+     * @Route("/author/{page<\d>}", name = "author_list")
+     */
+    public function concreteAuthor($page) {
         $this->logger->info($page);
         return $this->render('author.html.twig');
+    }
+
+    /**
+    * @Route("/author")
+    */
+    public function allAuthors($page) {
+        $this->logger->info($page);
+        return $this->render('authors.html.twig');
     }
 }
