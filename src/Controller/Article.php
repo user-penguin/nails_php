@@ -5,6 +5,8 @@ namespace App\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class Article extends AbstractController
 {
@@ -16,7 +18,7 @@ class Article extends AbstractController
     }
 
     /**
-     * @Route("/article")
+     * @Route("/articles")
      */
     public function articles() {
         return $this->render('articles.html.twig');

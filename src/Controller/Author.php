@@ -25,7 +25,7 @@ class Author extends AbstractController
     }
 
     /**
-    * @Route("/author")
+    * @Route("/authors")
     */
     public function allAuthors($page) {
         $this->logger->info($page);
