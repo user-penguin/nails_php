@@ -18,9 +18,11 @@ class Article extends AbstractController
     }
 
     /**
-     * @Route("/articles")
+     * @Route("/article")
      */
     public function articles() {
         return $this->render('articles.html.twig');
     }
+
+
 }

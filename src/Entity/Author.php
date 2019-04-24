@@ -5,106 +5,173 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * "authors"
- *
- * @ORM\Table(name="Authors", indexes={@ORM\Index(name="IDX_41B113CD8AE386CF", columns={"MainPhotoId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\AuthorRepository")
  */
-class Authors
+class Author
 {
+
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName=""Authors"_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Name", type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    private $Name;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="SecName", type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100)
      */
-    private $secname;
+    private $SecName;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Email", type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100)
      */
-    private $email;
+    private $Email;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Phone", type="string", length=12, nullable=true)
+     * @ORM\Column(type="string", length=12, nullable=true)
      */
-    private $phone;
+    private $Phone;
 
     /**
-     * @var int|null
-     *
-     * @ORM\Column(name="Ranking", type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $ranking;
+    private $Ranking;
 
     /**
-     * @var int|null
-     *
-     * @ORM\Column(name="Price", type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $price;
+    private $Price;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Mission", type="string", length=200, nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
-    private $mission;
+    private $Mission;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="MainText", type="string", length=5000, nullable=true)
+     * @ORM\Column(type="string", length=5000)
      */
-    private $maintext;
+    private $MainText;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetimetz", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $createdat;
+    private $MainPhoto;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetimetz", nullable=false)
-     */
-    private $updatedat;
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="MainPhotoId", type="integer", nullable=true)
-     */
-    private $mainphotoid;
+    public function getName(): ?string
+    {
+        return $this->Name;
+    }
 
-    /**
-     * @var \Photos
-     *
-     * @ORM\ManyToOne(targetEntity="Photos")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name=""MainPhotoId"", referencedColumnName="id")
-     * })
-     */
+    public function setName(string $Name): self
+    {
+        $this->Name = $Name;
+
+        return $this;
+    }
+
+    public function getSecName(): ?string
+    {
+        return $this->SecName;
+    }
+
+    public function setSecName(string $SecName): self
+    {
+        $this->SecName = $SecName;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->Email;
+    }
+
+    public function setEmail(string $Email): self
+    {
+        $this->Email = $Email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->Phone;
+    }
+
+    public function setPhone(?string $Phone): self
+    {
+        $this->Phone = $Phone;
+
+        return $this;
+    }
+
+    public function getRanking(): ?int
+    {
+        return $this->Ranking;
+    }
+
+    public function setRanking(int $Ranking): self
+    {
+        $this->Ranking = $Ranking;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->Price;
+    }
+
+    public function setPrice(int $Price): self
+    {
+        $this->Price = $Price;
+
+        return $this;
+    }
+
+    public function getMission(): ?string
+    {
+        return $this->Mission;
+    }
+
+    public function setMission(?string $Mission): self
+    {
+        $this->Mission = $Mission;
+
+        return $this;
+    }
+
+    public function getMainText(): ?string
+    {
+        return $this->MainText;
+    }
+
+    public function setMainText(string $MainText): self
+    {
+        $this->MainText = $MainText;
+
+        return $this;
+    }
+
+    public function getMainPhoto(): ?int
+    {
+        return $this->MainPhoto;
+    }
+
+    public function setMainPhoto(?int $MainPhoto): self
+    {
+        $this->MainPhoto = $MainPhoto;
+
+        return $this;
+    }
 }
