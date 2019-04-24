@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="css/authorAdm.css" rel="stylesheet">
     <link href="css/topAndBottom.css" rel="stylesheet">
-    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal fade" id="addingForm" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -15,17 +15,31 @@
                     <button class="close" type="button" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
-                    <form class="form" action="/article/add_new_article" method="post" id="newArticleForm" enctype="application/json">
+                    <form class="form" action="/author/add_new_author" method="post" id="newAuthorForm" enctype="application/json">
                         <div class="form__container">
                             <div class="form__inputs">
-                                <input class="form__input" type="text" name="Title" placeholder="Заголовок" required><br><br>
-                                <input class="form__input" type="text" name="Text1" placeholder="Часть 1" required><br><br>
-                                <input class="form__input" type="text" name="Text2" placeholder="Часть 2" required><br><br><br>
-                                <select name="author" required>
-                                    {% for author in authors %}
-                                        <option value="{{author.getId()|e}}">{{author.getName()|e}} </option>
-                                    {% endfor %}
-                                </select>
+                                <input class="form__input" type="text" name="name" placeholder="Имя" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="text" name="secName" placeholder="Фамилия" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="email" name="email" placeholder="Email" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="tel" name="phone" pattern="^\+7\d{3}\d{7}$" value="+7" maxlength="12" placeholder="Email" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="number" name="ranking" maxlength="2" placeholder="Рейтинг" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="number" name="price" maxlength="8" placeholder="Стоимость" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="text" name="mission"  placeholder="Цель регистрации" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="text" name="mainText"  placeholder="Основной текст" required>
                                 <br>
                                 <br>
                             </div>
@@ -41,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="myEdit" role="dialog">
+    <div class="modal fade" id="editingForm" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -49,13 +63,28 @@
                     <button class="close" type="button" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
-                    <form class="form" action="/article/edit_article" method="post" id="editArticleForm" enctype="application/json">
+                    <form class="form" action="/author/edit_author" method="post" id="editAuthorForm" enctype="application/json">
                         <div class="form__container">
                             <div class="form__inputs">
-                                <input class="form__input" type="text" id="editTitle" name="editTitle" value=" " placeholder="Заголовок" required><br><br>
-                                <input class="form__input" type="text" id="editText1" name="editText1" placeholder="Часть 1" required><br><br>
-                                <input class="form__input" type="text" id="editText2" name="editText2" placeholder="Часть 2" required><br><br>
-                                <input id="idArticle" name="idArticle" readonly>
+                                <input class="form__input" type="text" name="editName" placeholder="Имя" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="text" name="editSecName" placeholder="Фамилия" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="email" name="editEmail" placeholder="Email" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="tel" name="editPhone" pattern="^\+7\d{3}\d{7}$" value="+7" maxlength="12" placeholder="Email" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="number" name="editRanking" maxlength="2" placeholder="Рейтинг" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="text" name="editMission"  placeholder="Цель регистрации" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="text" name="editMainText"  placeholder="Основной текст" required>
                                 <br>
                                 <br>
                             </div>
@@ -90,29 +119,49 @@
 <table class="table table-striped table-bordered" id="authorsTable">
     <thead>
     <tr>
-        <th>Id</th>
-        <th>Заголовок</th>
-        <th>Автор</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Почта</th>
+        <th>Телефон</th>
+        <th>Рейтинг</th>
+        <th>Стоимость</th>
+        <th>Цель</th>
+        <th>Описание</th>
         <th>
-            <button class="btn btn-info btn-lg" type="button" data-toggle="modal" data-target="#myModal">Добавить</button>
+            <button class="btn btn-info btn-lg" type="button" data-toggle="modal" data-target="#addingForm">Добавить</button>
         </th>
     </tr>
     </thead>
     <tbody>
-    {% for article in articles %}
+    {% for author in authors %}
         <tr>
             <td>
-                {{ article.getId() }}
+                {{ author.getName() }}
             </td>
             <td>
-                {{ article.getTitle() }}
+                {{ author.getSecName() }}
             </td>
             <td>
-                {{ article.getAuthor().getName() }}
+                {{ author.getEmail() }}
             </td>
             <td>
-                <a class="btn btn-info btn-lg" href="/article/delete_article/{{ article.getId() }}">Удалить</a>
-                <button class="btn btn-info btn-lg" onclick="fillEditField('{{ article.getTitle }}', '{{ article.getText1 }}', '{{ article.getTitle2 }}', '{{ article.getId() }}')" type="button" data-toggle="modal" data-target="#myEdit">Изменить</button>
+                {{ author.getPhone() }}
+            </td>
+            <td>
+                {{ author.getRanking() }}
+            </td>
+            <td>
+                {{ author.getPrice() }}
+            </td>
+            <td>
+                {{ author.getMission() }}
+            </td>
+            <td>
+                {{ author.getMainText() }}
+            </td>
+            <td>
+                <a class="btn btn-info btn-lg" href="/author/delete_author/{{ author.getId() }}">Удалить</a>
+{#                <button class="btn btn-info btn-lg" onclick="fillEditField('{{ aut.getTitle }}', '{{ article.getText1 }}', '{{ article.getTitle2 }}', '{{ article.getId() }}')" type="button" data-toggle="modal" data-target="#myEdit">Изменить</button>#}
             </td>
         </tr>
     {% endfor %}

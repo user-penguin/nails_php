@@ -21,13 +21,13 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/author/delete_delete/{page<\d>}", name = "author_delete")
+     * @Route("/author/delete_delete/{id<\d>}", name = "author_delete")
      */
-    public function deleteAuthor($page) {
+    public function deleteAuthor($id) {
         $entityManager = $this->getDoctrine()->getManager();
-        $repositoryArticles = $this->getDoctrine()->getRepository(Article::class);
-        $article = $repositoryArticles->find($page);
-        $entityManager->remove($article);
+        $repositoryAuthors = $this->getDoctrine()->getRepository(Author::class);
+        $author = $repositoryAuthors->find($id);
+        $entityManager->remove($author);
         $entityManager->flush();
         return $this->redirectToRoute("article_admin");
     }
@@ -64,29 +64,30 @@ class AuthorController extends AbstractController
      */
     public function addNewAuthor(LoggerInterface $logger)
     {
-        $Title = $_POST["Title"];
-        $Text1 = $_POST["Text1"];
-        $Text2 = $_POST["Text2"];
-        $authorId = $_POST["author"];
-        $article = new Article();
-
+        $Name = $_POST["name"];
+        $SecName = $_POST["secName"];
+        $Email = $_POST["email"];
+        $Phone = $_POST["phone"];
+        $Price = $_POST["price"];
+        $Ranking = $_POST["ranking"];
+        $Mission = $_POST["mission"];
+        $MainText = $_POST["mainText"];
+        $author = new Author();
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        $authorRepository = $this->getDoctrine()->getRepository(Author::class);
-        $author = $authorRepository->find((int)$authorId);
+        $author->setName($Name);
+        $author->setSecName($SecName);
+        $author->setEmail($Email);
+        $author->setPhone($Phone);
+        $author->setRanking((int)$Ranking);
+        $author->setPrice((int)$Price);
+        $author->setMission($Mission);
+        $author->setMainText($MainText);
 
-
-        $article->setAuthor($author);
-        $article->setTitle($Title);
-        $article->setText1($Text1);
-        $article->setTitle2($Text2);
-        $article->setAuthorId(1);
-
-        $entityManager->persist($article);
+        $entityManager->persist($author);
         $entityManager->flush();
 
-        $logger->info($Title);
         return $this->redirectToRoute("author_admin");
     }
 }
