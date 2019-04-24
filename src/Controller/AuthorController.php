@@ -14,16 +14,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class AuthorController extends AbstractController
 {
     /**
-     * @Route("/author/{page<\d>}", name = "author_list")
+     * @Route("/author/{page<\d>}", name = "conrete_author")
      */
-    public function concreteArticle($page) {
-        return $this->render('article.html.twig');
+    public function concretAuthor($page) {
+        return $this->render('author.html.twig');
     }
 
     /**
-     * @Route("/article/delete_article/{page<\d>}", name = "article_delete")
+     * @Route("/author/delete_delete/{page<\d>}", name = "author_delete")
      */
-    public function deleteArticle($page) {
+    public function deleteAuthor($page) {
         $entityManager = $this->getDoctrine()->getManager();
         $repositoryArticles = $this->getDoctrine()->getRepository(Article::class);
         $article = $repositoryArticles->find($page);
@@ -33,9 +33,9 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/article/edit_article", name = "article_edit")
+     * @Route("/author/edit_author", name = "author_edit")
      */
-    public function editArticle() {
+    public function editAuthor() {
         $articleId = $_POST["idArticle"];
         $Title = $_POST["editTitle"];
         $Text1 = $_POST["editText1"];
@@ -60,9 +60,9 @@ class AuthorController extends AbstractController
 
 
     /**
-     * @Route("/article/add_new_article")
+     * @Route("/author/add_new_author")
      */
-    public function addNewArticles(LoggerInterface $logger)
+    public function addNewAuthor(LoggerInterface $logger)
     {
         $Title = $_POST["Title"];
         $Text1 = $_POST["Text1"];
@@ -87,6 +87,6 @@ class AuthorController extends AbstractController
         $entityManager->flush();
 
         $logger->info($Title);
-        return $this->redirectToRoute("article_admin");
+        return $this->redirectToRoute("author_admin");
     }
 }

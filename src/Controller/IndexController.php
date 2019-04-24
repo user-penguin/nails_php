@@ -37,4 +37,18 @@ class IndexController extends AbstractController
 
         return $this->render('articleAdmin.html.twig', ['articles' => $articles, 'authors' => $authors]);
     }
+
+    /**
+     * @Route("/authorAdmin", name = "author_admin")
+     */
+    public function authorAdmin(LoggerInterface $logger) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $repositoryArticles = $this->getDoctrine()->getRepository(Article::class);
+        $repositoryAuthors = $this->getDoctrine()->getRepository(Author::class);
+        $articles = $repositoryArticles->findAll();
+        $authors = $repositoryAuthors->findAll();
+        $logger->info($articles[0]->getAuthorId());
+
+        return $this->render('authorAdmin.html.twig', ['authors' => $authors]);
+    }
 }
