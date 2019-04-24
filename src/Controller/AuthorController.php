@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class Author extends AbstractController
+class AuthorController extends AbstractController
 {
     public function __construct(LoggerInterface $logger)
     {

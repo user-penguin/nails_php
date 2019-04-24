@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 
 
 
-class Index extends AbstractController
+class IndexController extends AbstractController
 {
     /**
      * @Route("/")
@@ -30,7 +30,7 @@ class Index extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $products = $repository->findAll();
-        $logger->info($products[0]);
+        $logger->info($products[0]->getAuthorId());
 
         return $this->render('articleAdmin.html.twig', ['articles' => $products]);
     }
