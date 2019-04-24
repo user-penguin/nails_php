@@ -45,9 +45,7 @@ class IndexController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $repositoryArticles = $this->getDoctrine()->getRepository(Article::class);
         $repositoryAuthors = $this->getDoctrine()->getRepository(Author::class);
-        $articles = $repositoryArticles->findAll();
         $authors = $repositoryAuthors->findAll();
-        $logger->info($articles[0]->getAuthorId());
 
         return $this->render('authorAdmin.html.twig', ['authors' => $authors]);
     }

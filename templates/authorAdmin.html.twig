@@ -66,25 +66,31 @@
                     <form class="form" action="/author/edit_author" method="post" id="editAuthorForm" enctype="application/json">
                         <div class="form__container">
                             <div class="form__inputs">
-                                <input class="form__input" type="text" name="editName" placeholder="Имя" required>
+                                <input class="form__input" type="text" name="editName" id="editName" placeholder="Имя" required>
                                 <br>
                                 <br>
-                                <input class="form__input" type="text" name="editSecName" placeholder="Фамилия" required>
+                                <input class="form__input" type="text" name="editSecName" id="editSecName" placeholder="Фамилия" required>
                                 <br>
                                 <br>
-                                <input class="form__input" type="email" name="editEmail" placeholder="Email" required>
+                                <input class="form__input" type="email" name="editEmail" id="editEmail" placeholder="Email" required>
                                 <br>
                                 <br>
-                                <input class="form__input" type="tel" name="editPhone" pattern="^\+7\d{3}\d{7}$" value="+7" maxlength="12" placeholder="Email" required>
+                                <input class="form__input" type="tel" name="editPhone" id="editPhone" pattern="^\+7\d{3}\d{7}$" value="+7" maxlength="12" placeholder="Email" required>
                                 <br>
                                 <br>
-                                <input class="form__input" type="number" name="editRanking" maxlength="2" placeholder="Рейтинг" required>
+                                <input class="form__input" type="number" name="editRanking" id="editRanking" maxlength="2" placeholder="Рейтинг" required>
                                 <br>
                                 <br>
-                                <input class="form__input" type="text" name="editMission"  placeholder="Цель регистрации" required>
+                                <input class="form__input" type="number" name="editPrice" id="editPrice" maxlength="8" placeholder="Стоимость" required>
                                 <br>
                                 <br>
-                                <input class="form__input" type="text" name="editMainText"  placeholder="Основной текст" required>
+                                <input class="form__input" type="text" name="editMission" id="editMission"  placeholder="Цель регистрации" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="text" name="editMainText" id="editMainText"  placeholder="Основной текст" required>
+                                <br>
+                                <br>
+                                <input class="form__input" type="text" name="idAuthor" id="idAuthor"  placeholder="Id автора" readonly>
                                 <br>
                                 <br>
                             </div>
@@ -161,7 +167,7 @@
             </td>
             <td>
                 <a class="btn btn-info btn-lg" href="/author/delete_author/{{ author.getId() }}">Удалить</a>
-{#                <button class="btn btn-info btn-lg" onclick="fillEditField('{{ aut.getTitle }}', '{{ article.getText1 }}', '{{ article.getTitle2 }}', '{{ article.getId() }}')" type="button" data-toggle="modal" data-target="#myEdit">Изменить</button>#}
+                <button class="btn btn-info btn-lg" onclick="fillEditField('{{ author.getName() }}', '{{ author.getSecName() }}', '{{ author.getEmail() }}', '{{ author.getPhone() }}', '{{ author.getRanking() }}', '{{ author.getPrice }}', '{{ author.getMission() }}', '{{ author.getMainText() }}', '{{ author.getId() }}')" type="button" data-toggle="modal" data-target="#editingForm">Изменить</button>
             </td>
         </tr>
     {% endfor %}
@@ -171,16 +177,17 @@
     <p>Blog template built for<a href="https://getbootstrap.com/">Bootstrap</a> by<a href="https://github.com/user-penguin">@user-penguin</a>.<a href="#"> Back to top</a></p>
 </footer>
 <script>
-    function fillEditField(title1, text1, text2, id) {
-        console.log('Я тут')
-        var editTitle = document.getElementById('editTitle');
-        var editText1 = document.getElementById('editText1');
-        var editText2 = document.getElementById('editText2');
-        var idArticle = document.getElementById('idArticle');
-        editTitle.value = title1;
-        editText1.value = text1;
-        editText2.value = text2;
-        idArticle.value = id
+    function fillEditField(name, secName, email, phone, ranking, price, mission, mainText, idAuthor) {
+        document.getElementById('editName').value = name;
+        document.getElementById('editSecName').value = secName;
+        document.getElementById('editEmail').value = email;
+        document.getElementById('editPhone').value = phone;
+        document.getElementById('editRanking').value = ranking;
+        document.getElementById('editPrice').value = price;
+        document.getElementById('editMission').value = mission;
+        document.getElementById('editMainText').value = mainText;
+        document.getElementById('idAuthor').value = idAuthor;
+        console.log(idAuthor);
     }
 </script>
 <script>

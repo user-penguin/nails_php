@@ -21,41 +21,60 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/author/delete_delete/{id<\d>}", name = "author_delete")
+     * @Route("/author/delete_author/{id<\d>}", name = "author_delete")
      */
     public function deleteAuthor($id) {
         $entityManager = $this->getDoctrine()->getManager();
+
+        $repositoryArticles = $this->getDoctrine()->getRepository(Article::class);
+
+        $articles = $repositoryArticles->findAll();
+        foreach ($articles as $concreteArticle) {
+            if ($concreteArticle->getAuthor()->getId() == $id) {
+                $entityManager->remove($concreteArticle);
+            }
+        }
         $repositoryAuthors = $this->getDoctrine()->getRepository(Author::class);
         $author = $repositoryAuthors->find($id);
         $entityManager->remove($author);
         $entityManager->flush();
-        return $this->redirectToRoute("article_admin");
+        return $this->redirectToRoute("author_admin");
     }
 
     /**
      * @Route("/author/edit_author", name = "author_edit")
      */
     public function editAuthor() {
-        $articleId = $_POST["idArticle"];
-        $Title = $_POST["editTitle"];
-        $Text1 = $_POST["editText1"];
-        $Text2 = $_POST["editText2"];
+        $Name = $_POST["editName"];
+        $SecName = $_POST["editSecName"];
+        $Email = $_POST["editEmail"];
+        $Phone = $_POST["editPhone"];
+        $Price = $_POST["editPrice"];
+        $Ranking = $_POST["editRanking"];
+        $Mission = $_POST["editMission"];
+        $MainText = $_POST["editMainText"];
+        $id = $_POST["idAuthor"];
 
         $entityManager = $this->getDoctrine()->getManager();
-        $article = $this->getDoctrine()->getRepository(Article::class)->find((int)$articleId);
+        $author = $this->getDoctrine()->getRepository(Author::class)->find((int)$id);
 
-        if (!$article) {
+        if (!$author) {
             throw $this->createNotFoundException(
-                'No product found for id '.$articleId
+                'No product found for id '.$id
             );
         }
 
-        $article->setTitle($Title);
-        $article->setText1($Text1);
-        $article->setTitle2($Text2);
+        $author->setName($Name);
+        $author->setSecName($SecName);
+        $author->setEmail($Email);
+        $author->setPhone($Phone);
+        $author->setRanking((int)$Ranking);
+        $author->setPrice((int)$Price);
+        $author->setMission($Mission);
+        $author->setMainText($MainText);
 
         $entityManager->flush();
-        return $this->redirectToRoute("article_admin");
+        return $this->redirectToRoute("author_admin");
     }
 
 

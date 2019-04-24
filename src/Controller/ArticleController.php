@@ -26,12 +26,12 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/article/delete_article/{page<\d>}", name = "article_delete")
+     * @Route("/article/delete_article/{id<\d>}", name = "article_delete")
      */
-    public function deleteArticle($page) {
+    public function deleteArticle($id) {
         $entityManager = $this->getDoctrine()->getManager();
         $repositoryArticles = $this->getDoctrine()->getRepository(Article::class);
-        $article = $repositoryArticles->find($page);
+        $article = $repositoryArticles->find($id);
         $entityManager->remove($article);
         $entityManager->flush();
         return $this->redirectToRoute("article_admin");

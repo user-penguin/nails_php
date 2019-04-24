@@ -12,7 +12,7 @@ class Article
 {
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="Article")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="Article", cascade={"persist", "remove"})
      */
     private $author;
 
