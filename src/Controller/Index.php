@@ -8,7 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Entity\Articles;
+use App\Entity\Article;
+use Psr\Log\LoggerInterface;
+
 
 
 class Index extends AbstractController
@@ -24,10 +26,11 @@ class Index extends AbstractController
     /**
      * @Route("/articleAdmin")
      */
-    public function articleAdmin() {
+    public function articleAdmin(LoggerInterface $logger) {
         $entityManager = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository(Articles::class);
+        $repository = $this->getDoctrine()->getRepository(Article::class);
         $products = $repository->findAll();
+        $logger->info($products[0]);
 
         return $this->render('articleAdmin.html.twig', ['articles' => $products]);
     }
