@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Article;
+use App\Entity\Author;
 use Psr\Log\LoggerInterface;
 
 
@@ -24,14 +25,16 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/articleAdmin")
+     * @Route("/articleAdmin", name = "article_admin")
      */
     public function articleAdmin(LoggerInterface $logger) {
         $entityManager = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository(Article::class);
-        $products = $repository->findAll();
-        $logger->info($products[0]->getAuthorId());
+        $repositoryArticles = $this->getDoctrine()->getRepository(Article::class);
+        $repositoryAuthors = $this->getDoctrine()->getRepository(Author::class);
+        $articles = $repositoryArticles->findAll();
+        $authors = $repositoryAuthors->findAll();
+        $logger->info($articles[0]->getAuthorId());
 
-        return $this->render('articleAdmin.html.twig', ['articles' => $products]);
+        return $this->render('articleAdmin.html.twig', ['articles' => $articles, 'authors' => $authors]);
     }
 }

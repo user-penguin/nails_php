@@ -21,9 +21,13 @@
                                 <input class="form__input" type="text" name="Title" placeholder="Заголовок" required><br><br>
                                 <input class="form__input" type="text" name="Text1" placeholder="Часть 1" required><br><br>
                                 <input class="form__input" type="text" name="Text2" placeholder="Часть 2" required><br><br><br>
-{#                                <select name="author" required>#}
-{#                                    <option value="" hidden>Выберите автора</option>#}
-{#                                </select><br><br>#}
+                                <select name="author" required>
+                                    {% for author in authors %}
+                                       <option value="{{author.getId()|e}}">{{author.getName()|e}} </option>
+                                    {% endfor %}
+                                </select>
+                                <br>
+                                <br>
                             </div>
                         </div>
                         <div class="form__buttons">
@@ -51,7 +55,9 @@
                                 <input class="form__input" type="text" id="editTitle" name="editTitle" value=" " placeholder="Заголовок" required><br><br>
                                 <input class="form__input" type="text" id="editText1" name="editText1" placeholder="Часть 1" required><br><br>
                                 <input class="form__input" type="text" id="editText2" name="editText2" placeholder="Часть 2" required><br><br>
-                                <input id="idArticle" name="idArticle" readonly><br><br>
+                                <input id="idArticle" name="idArticle" readonly>
+                                <br>
+                                <br>
                             </div>
                         </div>
                         <div class="form__buttons">
@@ -81,26 +87,42 @@
     </div>
 </nav>
 <input class="form-control input-sm" id="searchString" type="text" onkeyup="tableSearch()" placeholder="Поиск по таблице" aria-controls="example">
-<!-- поиск строк-->
 <table class="table table-striped table-bordered" id="authorsTable">
     <thead>
     <tr>
         <th>Id</th>
         <th>Заголовок</th>
-        <th>Время создания</th>
         <th>Автор</th>
         <th>
             <button class="btn btn-info btn-lg" type="button" data-toggle="modal" data-target="#myModal">Добавить</button>
         </th>
     </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+        {% for article in articles %}
+        <tr>
+            <td>
+                {{ article.getId() }}
+            </td>
+            <td>
+                {{ article.getTitle() }}
+            </td>
+            <td>
+                {{ article.getAuthor().getName() }}
+            </td>
+            <td>
+                <a class="btn btn-info btn-lg" href="/article/delete_article/{{ article.getId() }}">Удалить</a>
+                <button class="btn btn-info btn-lg" onclick="fillEditField('{{ article.getTitle }}', '{{ article.getText1 }}', '{{ article.getTitle2 }}', '{{ article.getId() }}')" type="button" data-toggle="modal" data-target="#myEdit">Изменить</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 <footer class="blog-footer">
     <p>Blog template built for<a href="https://getbootstrap.com/">Bootstrap</a> by<a href="https://github.com/user-penguin">@user-penguin</a>.<a href="#"> Back to top</a></p>
 </footer>
 <script>
-    function fillEditField(i, title1, text1, text2, id) {
+    function fillEditField(title1, text1, text2, id) {
         console.log('Я тут')
         var editTitle = document.getElementById('editTitle');
         var editText1 = document.getElementById('editText1');
@@ -132,11 +154,12 @@
         }
     }
 </script>
+
 <!-- Placed at the end of the document so the pages load faster-->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="/assets/js/vendor/popper.min.js"></script>
-<script src="/dist/js/bootstrap.min.js"></script>
-<script src="/assets/js/vendor/holder.min.js"></script>
+<script src="assets/js/vendor/popper.min.js"></script>
+<script src="dist/js/bootstrap.min.js"></script>
+<script src="assets/js/vendor/holder.min.js"></script>
 <script>
     Holder.addTheme('thumb', {
         bg: '#55595c',
